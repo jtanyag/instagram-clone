@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { isUserFollowingProfile, toggleFollow } from '../../services/firebase';
 import useUser from '../../hooks/use-user';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
+import UserContext from '../../context/user';
 
 export default function Header({
   photosCount,
@@ -10,6 +11,7 @@ export default function Header({
   setFollowerCount,
   profile: { docId: profileDocId, userId: profileUserId, fullName, followers = [], following = [], username: profileUsername }
 }) {
+  const { user: loggedInUser } = useContext(UserContext);
   const { user } = useUser();
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
   const activeBtnFollow = user.username && user.username !== profileUsername;
