@@ -36,6 +36,7 @@ export default function SignUp() {
             fullName,
             emailAddress: emailAddress.toLowerCase(),
             following: [],
+            followers: [],
             dateCreated: Date.now()
           });
 
@@ -47,6 +48,7 @@ export default function SignUp() {
         setError(error.message);
       }
     } else {
+      setUsername('');
       setError('That username is alread taken. Please try another.');
     }
   };
@@ -80,7 +82,7 @@ export default function SignUp() {
             <input
               aria-label='Enter your full name'
               type='text'
-              placeholder='Full Name'
+              placeholder='Full name'
               className='text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-ray-primary rounded mb-2'
               onChange={({ target }) => setFullName(target.value)}
               value={fullName}
@@ -88,7 +90,7 @@ export default function SignUp() {
             <input
               aria-label='Enter your email address'
               type='text'
-              placeholder='Email Address'
+              placeholder='Email address'
               className='text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-ray-primary rounded mb-2'
               onChange={({ target }) => setEmailAddress(target.value)}
               value={emailAddress}
