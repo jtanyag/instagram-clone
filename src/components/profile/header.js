@@ -9,12 +9,12 @@ export default function Header({
   photosCount,
   followerCount,
   setFollowerCount,
-  profile: { docId: profileDocId, userId: profileUserId, fullName, followers = [], following = [], username: profileUsername }
+  profile: { docId: profileDocId, userId: profileUserId, fullName, followers, following, username: profileUsername }
 }) {
   const { user: loggedInUser } = useContext(UserContext);
   const { user } = useUser();
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
-  const activeBtnFollow = user.username && user.username !== profileUsername;
+  const activeBtnFollow = user?.username && user?.username !== profileUsername;
 
   const handleToggleFollow = async () => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
@@ -30,20 +30,22 @@ export default function Header({
       setIsFollowingProfile(!!isFollowing);
     };
 
-    if (user.username && profileUserId) {
+    if (user?.username && profileUserId) {
       isLoggedInUserFollowingProfile();
     }
-  }, [user.username, profileUserId]);
+  }, [user?.username, profileUserId]);
 
   return (
     <div className='grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg'>
-      <div className='container flex justify-center'>
-        {profileUsername && (
+      <div className='container flex justify-center items-center'>
+        {profileUsername ? (
           <img
             className='rounded-full h-40 w-40 flex'
             alt={`${profileUsername} profile`}
             src={`/images/avatars/${profileUsername}.jpg`}
           />
+        ) : (
+          <Skeleton circle height={150} width={150} count={1} />
         )}
       </div>
       <div className='flex items-center justify-center flex-col col-span-2'>
