@@ -12,7 +12,7 @@ export default function Header({
   profile: { docId: profileDocId, userId: profileUserId, fullName, followers, following, username: profileUsername }
 }) {
   const { user: loggedInUser } = useContext(UserContext);
-  const { user } = useUser();
+  const { user } = useUser(loggedInUser?.uid);
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
   const activeBtnFollow = user?.username && user?.username !== profileUsername;
 
